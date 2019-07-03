@@ -14,8 +14,11 @@ IP_ADDRESS=$(bashio::config "HomeAssistantIP")
 
 bashio::log.info "${IP_ADDRESS}"
 
-bashio::log.info "$(bashio::hardware)"
+HARDWARE=$(bashio::hardware)
 
-pip3 install mutagen
+bashio::log.info "$HARDWARE"
 
-python3 -u doorbell-server.py
+pip install mutagen
+#pip3 install mutagen
+
+python -u doorbell-server.py
