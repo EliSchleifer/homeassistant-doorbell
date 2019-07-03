@@ -1,5 +1,5 @@
-ARG BUILD_FROM=hassioaddons/base-python:latest
-FROM $BUILD_FROM
+#ARG BUILD_FROM=hassioaddons/base-python:latest
+FROM hassioaddons/base-python:latest
 
 ENV LANG C.UTF-8
 
