@@ -3,6 +3,7 @@
 echo Starting Homeassistant Doorbell
 
 
+bashio::log.yellow " - Go to the Hass.io Panel."
 
 
 USERNAME=$(bashio::config "username")

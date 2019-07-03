@@ -7,13 +7,7 @@
   "startup": "before",
   "boot": "auto",
   "options": {
-    "HomeAssistantIP": "192.168.1.30",
-    "Calendar": [
-      { "date": "0806", "song": "HappyBirthday"},
-      { "date": "0526", "song": "HappyBirthday"},
-      { "date": "0909", "song": "HappyBirthday"},
-      { "date": "0323", "song": "HappyBirthday"}
-    ]
+    "HomeAssistantIP": "192.168.1.30"
   },
   "schema": {
     "HomeAssistantIP": "str",
@@ -21,7 +15,7 @@
       { "date": "str", "song": "str"}
     ]
   },
-  "host_network": True,
+  "host_network": true,
   "map": [
     "config"
   ],
