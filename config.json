@@ -6,10 +6,26 @@
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "before",
   "boot": "auto",
-  "options": {},
-  "schema": {},
-  "host_network": True
+  "options": {
+    "HomeAssistantIP": "192.168.1.30",
+    "Calendar": [
+      { "date": "0806", "song": "HappyBirthday"},
+      { "date": "0526", "song": "HappyBirthday"},
+      { "date": "0909", "song": "HappyBirthday"},
+      { "date": "0323", "song": "HappyBirthday"}
+    ]
+  },
+  "schema": {
+    "HomeAssistantIP": "str",
+    "Calendar": [
+      { "date": "str", "song": "str"}
+    ]
+  },
+  "host_network": True,
+  "map": [
+    "config"
+  ],
   "ports": {
-    "8888/tcp": 8888  
+    "8888/tcp": 8888
   }
 }
