@@ -11,8 +11,8 @@ bashio::log.info "${USERNAME}"
 
 IP_ADDRESS=$(bashio::config 'HomeAssistantIP')
 
-bashio::log.info "$(IP_ADDRESS)"
+bashio::log.info "${IP_ADDRESS}"
 
-bashio::log.info "$(bashio::hardware)"
+bashio::log.info "${bashio::hardware}"
 
 python3 -u doorbell-server.py
