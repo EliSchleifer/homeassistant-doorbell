@@ -1,18 +1,12 @@
-# sonos-doorbell
-HTTP driven doorbell chime for a Sonos system. 
+# homeassistant-doorbell
+HTTP driven doorbell chime
 
-Sonos doorbell uses the SoCo python package to drive a doorbell chime from an HTTP Web request. It is a fully contained python
-service that can be paired with out IoT devices or smart doorbells to play an audio file on a set of Sonos devices.
+This project was created in order to serve custom MP3 files to a home automation Doorbell system. Directly hosting
+MP3 files on a HomeAssistant box can cause problems when Sonos (or other players) cannot authenticate the TLS/SSL
+certificate that is used. This simple project exposes a local HTTP server (without https). It also does a little
+throttling so if a call comes in while the previous song would theoretically be playing...it rejects the request.
 
-The sonos-doorbell project launches a simple HTTP server that both receives the incoming doorbell requests and hosts the MP3 files to be used by the doorbell ring. 
 
-### Launch
-1. Install python3 or run from inside a Docker envrionment with python3 setup
-1. Edit main.sh to specify the Zone name and port you want the server to be hosted on
+### Home Assistant
+1. TODO: Setup system to provide well named songs and list of dates. So on birthdays birthday song can be played..etc...
 
-### Test
-http://{hostname:port}/doorbell_press?ringtone=dingdong1&volume=45 
-
-### Doorbird Systems
-1. Setup an HTTP call with the doorbell_press url you verified above
-1. Setup the doorbell press schedule to trigger the HTTP Relay
