@@ -1,11 +1,11 @@
-"""MP3 Server
+"""Doorbell Server
 
 To use the script:
 
  * Drop this script into a folder that, besides python files, contains
 nothing but music files
 
-mp3-server.py 
+doorbell-server.py 
 
 """
 
@@ -31,49 +31,23 @@ from mutagen.mp3 import MP3
 
 music_files = []
 
+playing_until = time.time()
+
 AudioFile = namedtuple("AudioFile", "url length name key")
 
-# def is_doorbell_busy():
-#     global doorbell_playing
-#     return doorbell_playing
+def is_doorbell_busy():
+    global playing_until
+    return time.time() < playing_until
 
-def on_doorbell(root_path, audio_file):
-    # global doorbell_playing
-        
-    http_path = root_path + "/" + audio_file.url
-    print('on_doorbell {} '.format(audio_file.name))
-    # if is_doorbell_busy():
-    #     print('Doorbell already playing...suppressing')
-    #     return        
-    # doorbell_playing = True
 
-    # snap = Snapshot(zone)
-    # snap.snapshot()
-            
-    # # Zone does not support snapshort restore properly for soundbar
-    # should_ring = zone.is_coordinator and not zone.is_playing_tv
-
-    # if should_ring:
-    #     trans_state = zone.get_current_transport_info()
-    #     if trans_state['current_transport_state'] == 'PLAYING':
-    #         zone.pause()    
-    #     zone.volume = volume
-
-    #     print('Play doorbell on ', zone.player_name)        
-    #     zone.play_uri(uri=http_path, title="Doorbell")
-       
-        # time.sleep(audio_file.length)
-        # print('Restoring {}'.format(zone.player_name))
-                
-    #     if snap.is_playing_cloud_queue:
-    #         print("Unlikely to resume playback. Cloud restore doesn't really work")
-    #     snap.restore(fade=False)       
-    # else:
-    #     print('Cannot play doorbell on the provided zone')
-    # doorbell_playing = False
  
 class CustomRequestHandler(SimpleHTTPRequestHandler):   
-    
+
+    def send_redirect(self, location):
+        self.send_response(301)
+        self.send_header('Location', location)
+        self.end_headers()
+
     def send_text_response(self, code, body):
         self.send_response(code)
         self.send_header("Content-type", "text/html")
@@ -82,10 +56,11 @@ class CustomRequestHandler(SimpleHTTPRequestHandler):
         self.wfile.write(bytes)
        
     def do_GET(self):
+        global playing_until
         if self.path.startswith('/doorbell_press'):    
-            # if is_doorbell_busy():
-            #     self.send_text_response(429, "Doorbell already playing")
-            #     return
+            if is_doorbell_busy():
+                self.send_text_response(429, "Doorbell already playing")
+                return
                 
             query = urlsplit(self.path).query            
             params = parse_qs(query)
@@ -109,18 +84,15 @@ class CustomRequestHandler(SimpleHTTPRequestHandler):
                     return
                 else:
                     # Pick random ringtone
-                    file_to_play = random.choice(music_files)        
-            
-            # volume = 40
-            # requested_volume = "volume" in params and params["volume"]
-            # if requested_volume and requested_volume[0].isdigit():
-            #     requested_volume = int(requested_volume[0])
-            #     volume = max(min(100, requested_volume), 0)
-            
-            msg = "Doorbell received (request_id:{})".format(random.randint(1, 1000))
-            self.send_text_response(200, msg)
-            # root_path = self.server.root_path
-            # on_doorbell(root_path, file_to_play, volume, self.server.zone)
+                    file_to_play = random.choice(music_files)                                
+
+            msg = "Doorbell received (request_id:{})".format(random.randint(1, 1000))                            
+            print(msg)
+            http_path = self.server.root_path + "/" + file_to_play.url
+            print('on_doorbell {} '.format(file_to_play.name))
+            # Update playing until end of the song
+            playing_until = time.time() + file_to_play.length
+            self.send_redirect(http_path)
         else:
             try:
                 super().do_GET()      
