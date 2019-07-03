@@ -8,6 +8,7 @@
   "boot": "auto",
   "options": {},
   "schema": {},
+  "host_network": True
   "ports": {
     "8888/tcp": 8888  
   }
