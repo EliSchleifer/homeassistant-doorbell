@@ -1,9 +1,9 @@
-ARG BUILD_FROM
+ARG BUILD_FROM=hassioaddons/base-python:latest
 FROM $BUILD_FROM
 
 ENV LANG C.UTF-8
 
-RUN apk add --no-cache python3
+#RUN apk add --no-cache python3
 
 # Copy data for add-on
 COPY run.sh /
@@ -13,4 +13,4 @@ COPY doorbell-server.py /
 
 RUN chmod a+x /run.sh
 
-CMD  /run.sh
+#CMD  /run.sh
