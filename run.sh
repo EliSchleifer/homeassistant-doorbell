@@ -9,7 +9,9 @@ USERNAME=$(bashio::config 'username')
 
 bashio::log.info "${USERNAME}"
 
-bashio::config.info "${USERNAME}"
+IP_ADDRESS=$(bashio::config 'HomeAssistantIP')
+
+bashio::log.info "$(IP_ADDRESS)"
 
 bashio::log.info "$(bashio::hardware)"
 
