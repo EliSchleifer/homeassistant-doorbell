@@ -8,7 +8,7 @@ RUN apk add --no-cache python3
 # Copy data for add-on
 COPY run.sh /
 COPY Ding1.mp3 /
-COPY mp3-server.py /
+COPY doorbell-server.py /
 
 RUN chmod a+x /run.sh
 
