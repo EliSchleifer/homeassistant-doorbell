@@ -7,13 +7,10 @@
   "startup": "before",
   "boot": "auto",
   "options": {
-    "HomeAssistantIP": "192.168.1.30"
+    "ip_address": ""
   },
   "schema": {
-    "HomeAssistantIP": "str",
-    "Calendar": [
-      { "date": "str", "song": "str"}
-    ]
+    "ip_address": "str"
   },
   "host_network": true,
   "map": [
