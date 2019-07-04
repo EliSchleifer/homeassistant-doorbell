@@ -1,9 +1,6 @@
-#ARG BUILD_FROM=hassioaddons/base-python:latest
 FROM hassioaddons/base-python:latest
 
 ENV LANG C.UTF-8
-
-#RUN apk add --no-cache python3
 
 # Copy data for add-on
 COPY run.sh /
