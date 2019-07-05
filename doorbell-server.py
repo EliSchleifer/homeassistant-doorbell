@@ -179,8 +179,11 @@ def main():
         
     try:
         if args.file_root:
-            print("File root: {0}".format(args.file_root))
-            os.chdir(args.file_root)
+            try:
+                print("File root: {0}".format(args.file_root))
+                os.chdir(args.file_root)
+            except FileNotFoundError:
+                print("Provided root path {} not found. Using current directory")
         else:
             print("File root: {}".format(os.getcwd()))
         load_music_files()
