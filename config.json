@@ -6,10 +6,14 @@
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "before",
   "boot": "auto",
+  "hassio_api": true,
+  "hassio_role": "default",
   "options": {
+    "log_level": "info",
     "ip_address": ""
   },
   "schema": {
+    "log_level": "match(^(trace|debug|info|notice|warning|error|fatal)$)",
     "ip_address": "str"
   },
   "host_network": true,
