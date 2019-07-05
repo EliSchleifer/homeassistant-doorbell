@@ -10,4 +10,4 @@ bashio::log.info "Serving audio files from ${FILE_ROOT}"
 
 pip install mutagen
 
-python -u doorbell-server.py --ip ${IP_ADDRESS-\"\"} --file_root ${FILE_ROOT-\"\"}
+python -u doorbell-server.py --ip ${IP_ADDRESS:-\"\"} --file_root ${FILE_ROOT:-\"\"}
