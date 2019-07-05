@@ -10,13 +10,15 @@
   "hassio_role": "default",
   "options": {
     "log_level": "info",
+    "file_root": "",
     "ip_address": "",
-    "file_root": ""
+    "seconds_between_quotes": 5
   },
   "schema": {
     "log_level": "match(^(trace|debug|info|notice|warning|error|fatal)$)",
+    "file_root": "str",
     "ip_address": "str",
-    "file_root": "str"
+    "seconds_between_quotes": "int(1,120)"    
   },
   "host_network": true,
   "map": [
