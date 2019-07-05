@@ -11,6 +11,7 @@ doorbell-server.py
 
 from __future__ import print_function, unicode_literals
 
+import errno
 import os
 import os.path
 import random
@@ -155,22 +156,35 @@ def parse_args():
     parser = argparse.ArgumentParser(description=description)
     parser.add_argument('--port', default=8888, type=int,
                         help='The local machine port to run the webser on')
-    parser.add_argument('--ip', default=detect_ip_address(),
+    parser.add_argument('--ip', default=None, type=str,
                         help='The local IP address of this machine. By '
                         'default it will attempt to autodetect it.')
+    parser.add_argument('--file_root', default='',
+                        help='The folder in this machine to serve as the root for '
+                        'the audio files. Default is current working directory')
 
     return parser.parse_args()
 
 def main():
     # Settings
     args = parse_args()
+
+    if not args.ip:
+        args.ip = detect_ip_address()
+
     print(" Will use the following settings:\n"
-          " IP of this machine: {args.ip}\n"
-          " Use port: {args.port}".format(args=args))
+          " IP to use: {args.ip}\n"
+          " Use port: {args.port}\n"
+          " File root: {args.file_root}".format(args=args))          
         
     try:
-        load_music_files()        
-        http_server = get_server(args.port, 0, None)
+        if args.file_root:
+            print("File root: {0}".format(args.file_root))
+            os.chdir(args.file_root)
+        else:
+            print("File root: {}".format(os.getcwd()))
+        load_music_files()
+        http_server = get_server(args.port, 100, None)
         http_server.root_path = "http://{}:{}".format(args.ip, args.port)
         http_server.serve_forever()
     except KeyboardInterrupt:
