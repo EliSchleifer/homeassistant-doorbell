@@ -1,6 +1,6 @@
 {
   "name": "Doorbell Song Server",
-  "version": "2",
+  "version": "2.1",
   "slug": "doorbell_song_server",
   "description": "Doorbell Song Web Server",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
@@ -11,16 +11,14 @@
   "options": {
     "log_level": "info",
     "file_root": "",
-    "ip_address": "",
-    "seconds_between_quotes": 5
+    "ip_address": ""
   },
   "schema": {
     "log_level": "match(^(trace|debug|info|notice|warning|error|fatal)$)",
     "file_root": "str",
-    "ip_address": "str",
-    "seconds_between_quotes": "int(1,120)"    
+    "ip_address": "str"
   },
-  "host_network": true,
+  "host_network": false,
   "map": [
     "config"
   ],

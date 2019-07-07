@@ -156,7 +156,7 @@ def parse_args():
     parser = argparse.ArgumentParser(description=description)
     parser.add_argument('--port', default=8888, type=int,
                         help='The local machine port to run the webser on')
-    parser.add_argument('--ip', default=None, type=str,
+    parser.add_argument('--ip', default='', type=str,
                         help='The local IP address of this machine. By '
                         'default it will attempt to autodetect it.')
     parser.add_argument('--file_root', default='',
@@ -171,21 +171,20 @@ def main():
 
     if not args.ip:
         args.ip = detect_ip_address()
-
-    print(" Will use the following settings:\n"
-          " IP to use: {args.ip}\n"
-          " Use port: {args.port}\n"
-          " File root: {args.file_root}".format(args=args))          
-        
+            
     try:
         if args.file_root:
             try:
-                print("File root: {0}".format(args.file_root))
                 os.chdir(args.file_root)
             except FileNotFoundError:
                 print("Provided root path {} not found. Using current directory")
+                args.file_root =  os.getcwd()
         else:
-            print("File root: {}".format(os.getcwd()))
+            args.file_root = os.getcwd()
+
+        print(" Will use the following settings:\n"
+              " Serving  audio  files  from {args.ip}:{args.port}\n"
+              " File root: {args.file_root}".format(args=args))                  
         load_music_files()
         http_server = get_server(args.port, 100, None)
         http_server.root_path = "http://{}:{}".format(args.ip, args.port)
