@@ -89,11 +89,16 @@ class CustomRequestHandler(SimpleHTTPRequestHandler):
 
             msg = "Doorbell received (request_id:{})".format(random.randint(1, 1000))                            
             print(msg)
-            http_path = self.server.root_path + "/" + file_to_play.url
+            # http_path = self.server.root_path + "/" + file_to_play.url
             print('on_doorbell {} '.format(file_to_play.name))
             # Update playing until end of the song
             playing_until = time.time() + file_to_play.length
-            self.send_redirect(http_path)
+            # Update the path to serve the desired file
+            self.path = file_to_play.url
+            try:
+                super().do_GET()      
+            except BrokenPipeError:
+                pass
         else:
             try:
                 super().do_GET()      
