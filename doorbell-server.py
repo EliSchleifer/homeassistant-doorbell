@@ -55,7 +55,7 @@ class CustomRequestHandler(SimpleHTTPRequestHandler):
         self.end_headers()
         bytes = "<body>{} - {}</body>".format(code, body).encode('utf-8')
         self.wfile.write(bytes)
-       
+
     def do_GET(self):
         global playing_until
         if self.path.startswith('/doorbell_press'):    
