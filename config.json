@@ -1,6 +1,6 @@
 {
   "name": "Doorbell Song Server",
-  "version": "2.2",
+  "version": "2.3",
   "slug": "doorbell_song_server",
   "description": "Doorbell Song Web Server",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
